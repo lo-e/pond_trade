@@ -1,0 +1,50 @@
+# Python
+*.pyc
+*.pyo
+*.egg-info/
+
+# Jupyter
+.ipynb_checkpoints
+
+# IDE
+.vscode
+.idea
+*.wpr
+*.wpu
+.vs
+x64
+
+# Temp
+build
+dist
+*.local
+
+# vn.py
+.vntrader
+
+# Visual Studio intermediate files
+*.exp
+*.iobj
+*.ipdb
+*.pdb
+
+# Documents
+_build
+_static
+_templates
+
+# File
+examples/TurtleStrategy/result.csv
+examples/TurtleStrategy_crypto/result.csv
+examples/spread_backtesting/result.csv
+*.csv
+
+# Folder
+examples/vn_trader/App/Turtle_crypto/dataservice/CSVs/
+examples/vn_trader/App/Turtle_crypto/dataservice/CSVs_/
+examples/MartingStrategy/signal_trades/
+examples/MartingStrategy/symbol_trades/
+examples/MartingStrategy/trending_continuous/
+
+# Misc
+.DS_Store
