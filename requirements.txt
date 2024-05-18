@@ -12,7 +12,6 @@ matplotlib
 seaborn
 PyCryptodome
 futu-api
-ta-lib
 ibapi
 deap
 pyzmq
