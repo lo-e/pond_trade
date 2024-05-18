@@ -21,3 +21,17 @@ Anaconda3-2021.11-Windows-x86_64.zip	507.5M	2021-11-17 12:10:52 (Python 3.9.7)
 ```
 https://www.mongodb.com/products/self-managed/community-edition
 ```
+
+> **行情数据文件导入到Mongodb数据库**
+
+```
+1、确保行情数据文件放在 pond_backtesting/data 文件夹下
+2、运行 pond_backtesting/data/utility.py 文件
+```
+
+> **开始回测**
+
+```
+1、确保模型信号文件放在 pond_backtesting/data 文件夹下
+2、运行 pond_backtesting/run.py 文件开始回测
+```
