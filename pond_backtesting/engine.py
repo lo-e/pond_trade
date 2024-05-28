@@ -120,7 +120,7 @@ class BacktestingEngine(object):
             cursor = collection.find(flt).sort('datetime')
             
             for d in cursor:
-                exchange = Exchange.RQ
+                exchange = Exchange.NONE
                 bar = BarData(gateway_name = '', symbol = '', exchange = exchange, datetime = None, endDatetime = None)
                 bar.__dict__ = d
                 

@@ -2,149 +2,14 @@
 General utility functions.
 """
 
-import json
-import logging
 import sys
-from pathlib import Path
-from typing import Callable, Dict, Tuple, Union, Optional
+from typing import Callable, Tuple, Union, Optional
 from decimal import Decimal
 from math import floor, ceil
 import numpy as np
 import talib
 from .object import BarData, TickData
-from .constant import Exchange, Interval
-import csv
-
-log_formatter = logging.Formatter('[%(asctime)s] %(message)s')
-
-
-def extract_vt_symbol(vt_symbol: str) -> Tuple[str, Exchange]:
-    """
-    :return: (symbol, exchange)
-    """
-    symbol_list = vt_symbol.split(".")
-    exchange = None
-    symbol = vt_symbol
-    if len(symbol_list) >= 2:
-        e = symbol_list[-1]
-        exchange = Exchange(e)
-        symbol_list.pop(-1)
-        symbol = '.'.join(symbol_list)
-    return symbol, exchange
-
-
-def generate_vt_symbol(symbol: str, exchange: Exchange) -> str:
-    """
-    return vt_symbol
-    """
-    return f"{symbol}.{exchange.value}"
-
-
-def _get_trader_dir(temp_name: str) -> Tuple[Path, Path]:
-    """
-    Get path where trader is running in.
-    """
-    cwd = Path.cwd()
-    temp_path = cwd.joinpath(temp_name)
-
-    # If .vntrader folder exists in current working directory,
-    # then use it as trader running path.
-    if temp_path.exists():
-        return cwd, temp_path
-
-    # Otherwise use home path of system.
-    home_path = Path.home()
-    temp_path = home_path.joinpath(temp_name)
-
-    # Create .vntrader folder under home path if not exist.
-    if not temp_path.exists():
-        temp_path.mkdir()
-
-    return home_path, temp_path
-
-
-TRADER_DIR, TEMP_DIR = _get_trader_dir(".vntrader")
-sys.path.append(str(TRADER_DIR))
-
-
-def get_file_path(filename: str) -> Path:
-    """
-    Get path for temp file with filename.
-    """
-    return TEMP_DIR.joinpath(filename)
-
-
-def get_folder_path(folder_name: str) -> Path:
-    """
-    Get path for temp folder with folder name.
-    """
-    folder_path = TEMP_DIR.joinpath(folder_name)
-    if not folder_path.exists():
-        folder_path.mkdir()
-    return folder_path
-
-
-def get_icon_path(filepath: str, ico_name: str) -> str:
-    """
-    Get path for icon file with ico name.
-    """
-    ui_path = Path(filepath).parent
-    icon_path = ui_path.joinpath("ico", ico_name)
-    return str(icon_path)
-
-
-def load_json(filename: str) -> dict:
-    """
-    Load data from json file in temp path.
-    """
-    filepath = get_file_path(filename)
-
-    if filepath.exists():
-        with open(filepath, mode="r", encoding="UTF-8") as f:
-            data = json.load(f)
-        return data
-    else:
-        save_json(filename, {})
-        return {}
-
-def save_json(filename: str, data: dict) -> None:
-    """
-    Save data into json file in temp path.
-    """
-    filepath = get_file_path(filename)
-    with open(filepath, mode="w+", encoding="UTF-8") as f:
-        json.dump(
-            data,
-            f,
-            indent=4,
-            ensure_ascii=False
-        )
-
-""" modify by loe """
-def load_json_path(filepath: Path):
-    """
-    Load data from json file in temp path.
-    """
-
-    if filepath.exists():
-        with open(filepath, mode="r", encoding="UTF-8") as f:
-            data = json.load(f)
-        return data
-    else:
-        return {}
-
-def save_json_path(filepath: Path, data: dict) -> None:
-    """
-    Save data into json file in temp path.
-    """
-    with open(filepath, mode="w+", encoding="UTF-8") as f:
-        json.dump(
-            data,
-            f,
-            indent=4,
-            ensure_ascii=False
-        )
-
+from .constant import Interval
 
 def round_to(value: float, target: float) -> float:
     """
@@ -174,22 +39,6 @@ def ceil_to(value: float, target: float) -> float:
     target = Decimal(str(target))
     result = float(int(ceil(value / target)) * target)
     return result
-
-
-def get_digits(value: float) -> int:
-    """
-    Get number of digits after decimal point.
-    """
-    value_str = str(value)
-
-    if "e-" in value_str:
-        _, buf = value_str.split("e-")
-        return int(buf)
-    elif "." in value_str:
-        _, buf = value_str.split(".")
-        return len(buf)
-    else:
-        return 0
 
 
 class BarGenerator:
@@ -982,65 +831,12 @@ class ArrayManager(object):
         return result[-1]
 
 
-def virtual(func: Callable) -> Callable:
-    """
-    mark a function as "virtual", which means that this function can be override.
-    any base class should use this or @abstractmethod to decorate all functions
-    that can be (re)implemented by subclasses.
-    """
-    return func
-
-
-file_handlers: Dict[str, logging.FileHandler] = {}
-
-
-def _get_file_logger_handler(filename: str) -> logging.FileHandler:
-    handler = file_handlers.get(filename, None)
-    if handler is None:
-        handler = logging.FileHandler(filename)
-        file_handlers[filename] = handler  # Am i need a lock?
-    return handler
-
-
-def get_file_logger(filename: str) -> logging.Logger:
-    """
-    return a logger that writes records into a file.
-    """
-    logger = logging.getLogger(filename)
-    handler = _get_file_logger_handler(filename)  # get singleton handler.
-    handler.setFormatter(log_formatter)
-    logger.addHandler(handler)  # each handler will be added only once.
-    return logger
-
-""" modify by loe """
-def is_crypto_symbol(symbol:str):
-    crypto_symbol_list = ['btc', 'eth', 'eos']
-    for crypto_symbol in crypto_symbol_list:
-        if crypto_symbol in symbol:
-            return True
-        crypto_symbol_upper = crypto_symbol.upper()
-        if crypto_symbol_upper in symbol:
-            return True
-    return False
-
-def csv_saving(file_name:str, data_list:list):
-    file_path = Path.cwd().joinpath(file_name)
-    if data_list:
-        dict_data = data_list[0]
-        if isinstance(dict_data, dict):
-            field_names = dict_data.keys()
-            with open(file_path, 'w') as f:
-                writer = csv.DictWriter(f, fieldnames=field_names)
-                writer.writeheader()
-                # 写入csv文件
-                writer.writerows(data_list)
-#====================================
-
 def get_platform_dir_symbol():
     platform = sys.platform
     result = '\\'
     if 'LINUX' in platform.upper():
         result = '/'
     return result
+
 
 DIR_SYMBOL = get_platform_dir_symbol()
