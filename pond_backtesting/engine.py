@@ -11,9 +11,9 @@ from pondStrategy import PondPortfolio
 import pandas as pd
 from time import time
 
-from vnpy.trader.object import BarData
-from vnpy.trader.constant import Direction, Exchange
-from vnpy.app.cta_strategy.base import HOUR_DB_NAME
+from public.object import BarData
+from public.constant import Direction, Exchange
+from public.base import HOUR_DB_NAME
 
 PRICETICK_DICT = {}
 VARIABLE_COMMISSION_DICT = {}

@@ -1,8 +1,7 @@
 # encoding: UTF-8
 
 from collections import defaultdict
-from vnpy.trader.constant import Direction, Offset
-from vnpy.app.cta_strategy.base import (DAILY_DB_NAME, DOMINANT_DB_NAME)
+from public.constant import Direction, Offset
 
 class TradeResult(object):
     """ 一次完整的开平交易 """

@@ -9,8 +9,8 @@ import pandas as pd
 import csv
 import shutil
 
-from vnpy.trader.constant import Direction, Offset
-from vnpy.trader.utility import DIR_SYMBOL
+from public.constant import Direction, Offset
+from public.utility import DIR_SYMBOL
 
 
 def backtesting(
