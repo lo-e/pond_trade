@@ -6,10 +6,11 @@ from engine import BacktestingEngine
 import csv
 import os
 import pandas as pd
-from vnpy.trader.constant import Direction, Offset
-from vnpy.trader.utility import DIR_SYMBOL
 import csv
 import shutil
+
+from vnpy.trader.constant import Direction, Offset
+from vnpy.trader.utility import DIR_SYMBOL
 
 
 def backtesting(

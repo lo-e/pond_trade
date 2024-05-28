@@ -1,11 +1,7 @@
 # encoding: UTF-8
 
 from collections import defaultdict
-from vnpy.trader.constant import Direction, Offset, Exchange
-from vnpy.trader.utility import ArrayManager
-from datetime import  datetime
-from pymongo import MongoClient, ASCENDING
-from vnpy.trader.object import BarData
+from vnpy.trader.constant import Direction, Offset
 from vnpy.app.cta_strategy.base import (DAILY_DB_NAME, DOMINANT_DB_NAME)
 
 class TradeResult(object):
