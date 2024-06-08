@@ -11,7 +11,7 @@ from public.utility import DIR_SYMBOL
 class CSVsBarLocalEngine(object):
     def __init__(self):
         super(CSVsBarLocalEngine, self).__init__()
-        self.client = pymongo.MongoClient("localhost", 27017)
+        self.client = pymongo.MongoClient("localhost", 27017, serverSelectionTimeoutMS=10000)
 
     def csv_to_mongodb(self, file_name:str, db_name:str):
         count = 0
