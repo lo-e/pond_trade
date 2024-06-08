@@ -2,11 +2,11 @@ import pymongo
 from time import time
 import csv
 from datetime import datetime
-from vnpy.trader.object import BarData
 from enum import Enum
-from vnpy.app.cta_strategy.base import (
-    HOUR_DB_NAME
-)
+
+from public.object import BarData
+from public.base import HOUR_DB_NAME
+from public.utility import DIR_SYMBOL
 
 class CSVsBarLocalEngine(object):
     def __init__(self):
@@ -60,4 +60,4 @@ class CSVsBarLocalEngine(object):
 
 if __name__ == "__main__":
     engine = CSVsBarLocalEngine()
-    engine.csv_to_mongodb(file_name="eth_price.csv", db_name=HOUR_DB_NAME)
+    engine.csv_to_mongodb(file_name=f"data{DIR_SYMBOL}eth_price.csv", db_name=HOUR_DB_NAME)
