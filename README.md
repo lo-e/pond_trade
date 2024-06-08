@@ -18,6 +18,19 @@ Anaconda3-2021.11-Windows-x86_64.zip	507.5M	2021-11-17 12:10:52 (Python 3.9.7)
 点击【install.bat】安装
 ```
 
+**安装ta-lib**
+
+```
+手动下载安装，而且需要下载对应Pyhon版本
+https://www.lfd.uci.edu/~gohlke/pythonlibs/#ta-lib
+或者
+https://github.com/cgohlke/talib-build/releases
+
+例如：
+cmd输入ipython显示Python版本为3.8.6
+则pip install TA_Lib‑0.4.18‑cp38‑cp38‑win_amd64.whl
+```
+
 > **安装Mongodb数据库**（使用complete默认配置安装）
 
 ```
@@ -40,21 +53,26 @@ https://www.mongodb.com/products/self-managed/community-edition
 
 ## Ubuntu系统
 
+
+> **安装pip**
+
+```
+sudo apt update
+sudo apt install python3-pip
+```
+
 > **安装依赖库**
 
 ```
-python3 -m pip3 install -r requirements.txt --break-system-packages
+pip3 install -r requirements.txt
+
+如果报错"error: externally-managed-environment"，尝试以下命令
+pip3 install -r requirements.txt --break-system-packages
 ```
 
 > **安装ta-lib**
 
 ```
-TA-Lib 需要一些编译工具和依赖库。可以通过以下命令安装这些依赖
-sudo apt update
-sudo apt install build-essential
-sudo apt install python3-dev
-sudo apt install libta-lib0 libta-lib0-dev
-
 下载 TA-Lib 源码
 wget http://prdownloads.sourceforge.net/ta-lib/ta-lib-0.4.0-src.tar.gz
 
@@ -69,4 +87,11 @@ sudo make install
 
 安装 Python 包
 pip3 install ta-lib
+```
+
+> **安装Mongodb数据库**
+
+```
+官方教程
+https://www.mongodb.com/docs/manual/tutorial/install-mongodb-on-ubuntu-tarball/
 ```
