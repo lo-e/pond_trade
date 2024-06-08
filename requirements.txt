@@ -1,6 +1,4 @@
-requests
-websocket-client
 numpy
-pandas
 matplotlib
-ta-lib
+pymongo
+pandas
