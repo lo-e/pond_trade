@@ -59,7 +59,7 @@ class CSVsBarLocalEngine(object):
                     print("数据量：", count, "\n")
 
                     """ fake """
-                    sleep(1)
+                    # sleep(1)
 
 if __name__ == "__main__":
     engine = CSVsBarLocalEngine()
