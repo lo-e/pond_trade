@@ -34,20 +34,21 @@ cmd输入ipython显示Python版本为3.8.6
 > **安装Mongodb数据库**（使用complete默认配置安装）
 
 ```
+官方下载安装
 https://www.mongodb.com/products/self-managed/community-edition
 ```
 
-> **行情数据文件导入到Mongodb数据库**
+> **历史行情数据导入到Mongodb数据库**
 
 ```
-1、确保行情数据文件放在 pond_backtesting/data 文件夹下
-2、运行 pond_backtesting/data/utility.py 文件
+1、确保历史行情数据文件(*.csv)放在 pond_backtesting/data 文件夹下
+2、运行 pond_backtesting/utility.py 文件
 ```
 
 > **开始回测**
 
 ```
-1、确保模型信号文件放在 pond_backtesting/data 文件夹下
+1、确保模型信号文件(*.csv)放在 pond_backtesting/data 文件夹下
 2、运行 pond_backtesting/run.py 文件开始回测
 ```
 
@@ -94,4 +95,34 @@ pip3 install ta-lib
 ```
 官方教程
 https://www.mongodb.com/docs/manual/tutorial/install-mongodb-on-ubuntu-tarball/
+```
+
+**历史行情数据导入到Mongodb数据库**
+
+```
+1、确保历史行情数据文件(*.csv)放在 pond_backtesting/data 文件夹下
+2、运行 pond_backtesting/utility.py 文件
+```
+
+> **开始回测**
+
+```
+1、确保模型信号文件(*.csv)放在 pond_backtesting/data 文件夹下
+2、运行 pond_backtesting/run.py 文件开始回测
+```
+
+## Ubuntu环境报错
+
+使用pymongo报错：
+
+pymongo.errors.AutoReconnect: localhost:27017: connection closed (configured timeouts: connectTimeoutMS: 20000.0ms)
+
+pymongo.errors.OperationFailure: 24: Too many open files, full error: {'ok': 0.0, 'errmsg': '24: Too many open files', 'code': 264, 'codeName': 'TooManyFilesOpen'}
+
+```
+Mongodb被意外关闭，重新系统运行Mongodb。
+mongod --dbpath /var/lib/mongo --logpath /var/log/mongodb/mongod.log --fork
+
+pymongo.errors.OperationFailure: 24: Too many open files 错误表明你的系统已经达到或超过了文件描述符的限制。这可能是由于大量的 MongoDB 连接或其他进程消耗了大量文件描述符导致的。
+ulimit -n 65536
 ```
