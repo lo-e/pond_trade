@@ -1,5 +1,5 @@
 import pymongo
-from time import time
+from time import time, sleep
 import csv
 from datetime import datetime
 from enum import Enum
@@ -57,6 +57,9 @@ class CSVsBarLocalEngine(object):
                     sub = time() - startTime
                     print("用时：", sub, "s")
                     print("数据量：", count, "\n")
+
+                    """ fake """
+                    sleep(1)
 
 if __name__ == "__main__":
     engine = CSVsBarLocalEngine()
