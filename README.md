@@ -18,7 +18,7 @@ Anaconda3-2021.11-Windows-x86_64.zip	507.5M	2021-11-17 12:10:52 (Python 3.9.7)
 点击【install.bat】安装
 ```
 
-**安装ta-lib**
+> **安装ta-lib**
 
 ```
 手动下载安装，而且需要下载对应Pyhon版本
@@ -97,7 +97,7 @@ pip3 install ta-lib
 https://www.mongodb.com/docs/manual/tutorial/install-mongodb-on-ubuntu-tarball/
 ```
 
-**历史行情数据导入到Mongodb数据库**
+> **历史行情数据导入到Mongodb数据库**
 
 ```
 1、确保历史行情数据文件(*.csv)放在 pond_backtesting/data 文件夹下
