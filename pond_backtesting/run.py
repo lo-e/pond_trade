@@ -59,8 +59,8 @@ def backtesting(
             symbol_signal_dict[symbol] = symbol_signal_list
 
             """ fake """
-            if len(symbol_set) >= 50:
-                break
+            # if len(symbol_set) >= 50:
+            #     break
 
     time_cost = time() - file_start
     print(f"信号数据读取总耗时：{time_cost}")
