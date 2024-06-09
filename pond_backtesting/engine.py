@@ -7,14 +7,13 @@ from collections import OrderedDict, defaultdict
 import numpy as np
 import matplotlib.pyplot as plt
 from pymongo import MongoClient
-from vnpy.trader.object import BarData
-from vnpy.trader.constant import Direction, Exchange
 from pondStrategy import PondPortfolio
-from vnpy.app.cta_strategy.base import DAILY_DB_NAME, MINUTE_DB_NAME, HOUR_DB_NAME, MinuteDataBaseName, HourDataBaseName
 import pandas as pd
-from time import sleep, time
-import threading
-from vnpy.trader.utility import ceil_to
+from time import time
+
+from public.object import BarData
+from public.constant import Direction, Exchange
+from public.base import HOUR_DB_NAME
 
 PRICETICK_DICT = {}
 VARIABLE_COMMISSION_DICT = {}
@@ -121,7 +120,7 @@ class BacktestingEngine(object):
             cursor = collection.find(flt).sort('datetime')
             
             for d in cursor:
-                exchange = Exchange.RQ
+                exchange = Exchange.NONE
                 bar = BarData(gateway_name = '', symbol = '', exchange = exchange, datetime = None, endDatetime = None)
                 bar.__dict__ = d
                 
